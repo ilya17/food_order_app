@@ -1,10 +1,10 @@
-import { useMemo } from "react"
+import React, { useMemo } from "react"
 import { Card } from "../../UI/Card/Card"
 import { MealItem } from "../MealItem"
 import { DUMMY_MEALS } from "./constants"
 import { MealContainerStyled, MealsStyled } from "./styled"
 
-export const AvailabelMeals = () => {
+export const AvailabelMeals = React.memo(() => {
     const memoList = useMemo(() => {
         return DUMMY_MEALS.map(({ name, description, price, id, amountItems }) =>
             <MealContainerStyled key={id}>
@@ -15,9 +15,10 @@ export const AvailabelMeals = () => {
         )
     }, [])
 
+
     return (
         <MealsStyled>
             {memoList}
         </MealsStyled>
     )
-}
+})

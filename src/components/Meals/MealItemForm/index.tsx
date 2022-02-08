@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { increment } from "../../../core/store/actions/counterAction";
 import { addItem } from "../../../core/store/actions/listOfItemsAction";
@@ -14,12 +14,12 @@ export const MealItemForm = ({ id, item, onAddHandler }: MealItemFormProps) => {
 
     const handleInput = (value: string) => setInputValue(value)
 
-    const handleAddPosition = () => {
+    const handleAddPosition = useCallback(() => {
         dispatch(increment(inputValue));
         dispatch(addItem(item))
         onAddHandler(Number(inputValue));
         setInputValue('1');
-    }
+    }, [dispatch, inputValue, item, onAddHandler])
 
     return <FormStyled>
         <Input
