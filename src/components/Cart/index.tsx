@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { allState } from "../../core/store"
 import { hide } from "../../core/store/actions/modalAction"
@@ -15,31 +15,29 @@ export const Cart = () => {
     const totalPrice: number = useSelector((state: allState) => state.totalPrice);
     const itemList: MealItemProps[] = useSelector((state: allState) => state.listOfItem.arr);
 
-    const uniqueArray: MealItemProps[] = useMemo(() => [], []);
+    const uniqueArray: MealItemProps[] = [];
 
     itemList.forEach(item => {
         let findIndex = uniqueArray.findIndex(uniqueItem => uniqueItem.id === item.id);
         findIndex > -1 ? uniqueArray[findIndex].amountItems += 1 : uniqueArray.push({ ...item });
     })
 
-    const memoList = useMemo(() => {
-        return (
-            uniqueArray.map(({ id, name, description, price, amountItems }) =>
-                <CartItem
-                    id={id}
-                    name={name}
-                    description={description}
-                    price={price}
-                    amountItems={amountItems}
-                    key={id} />
-            )
-        )
-    }, [uniqueArray])
+    const handleClose = useCallback(() => {
+        dispatch(hide())
+    }, [dispatch])
 
     return (
         <Modal>
             <ListStyled>
-                {memoList}
+                {uniqueArray.map(({ id, name, description, price, amountItems }) =>
+                    <CartItem
+                        id={id}
+                        name={name}
+                        description={description}
+                        price={price}
+                        amountItems={amountItems}
+                        key={id} />
+                )}
             </ListStyled>
             <div>
                 <TotalStyled>
@@ -47,7 +45,7 @@ export const Cart = () => {
                     <span>{totalPrice} ₽</span>
                 </TotalStyled>
                 <ActionsStyled>
-                    <Button onClick={() => dispatch(hide())} name="Закрыть" />
+                    <Button onClick={() => handleClose()} name="Закрыть" />
                     <Button name="Заказать" />
                 </ActionsStyled>
             </div>

@@ -6,7 +6,6 @@ import { MealItemProps } from "./interfaces";
 import { DescriptionStyled, MealInfoStyled, MealStyled, PriceStyled } from "./styled";
 
 export const MealItem = (item: MealItemProps) => {
-
     const dispatch = useDispatch();
 
     const costCalculationHandler = (amount: number) => {
