@@ -31,9 +31,9 @@ export const ModalStyled = styled.div`
     top: 20vh;
     left: 24%;
     width: 50%;
-    height: 50%;
     background-color: white;
     padding: 1rem;
+    height: 50%;
     border-radius: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 30;

@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { allState } from "../../core/store"
 import { hide } from "../../core/store/actions/modalAction"
@@ -15,29 +15,26 @@ export const Cart = () => {
     const totalPrice: number = useSelector((state: allState) => state.totalPrice);
     const itemList: MealItemProps[] = useSelector((state: allState) => state.listOfItem.arr);
 
-    const uniqueArray: MealItemProps[] = [];
-
-    itemList.forEach(item => {
-        let findIndex = uniqueArray.findIndex(uniqueItem => uniqueItem.id === item.id);
-        findIndex > -1 ? uniqueArray[findIndex].amountItems += 1 : uniqueArray.push({ ...item });
-    })
-
     const handleClose = useCallback(() => {
         dispatch(hide())
     }, [dispatch])
 
+    const memoList = useMemo(() => {
+        return itemList.map(({ id, name, description, price, amountItems }) =>
+            <CartItem
+                id={id}
+                name={name}
+                description={description}
+                price={price}
+                amountItems={amountItems}
+                key={id} />
+        )
+    }, [itemList])
+
     return (
         <Modal>
             <ListStyled>
-                {uniqueArray.map(({ id, name, description, price, amountItems }) =>
-                    <CartItem
-                        id={id}
-                        name={name}
-                        description={description}
-                        price={price}
-                        amountItems={amountItems}
-                        key={id} />
-                )}
+                {memoList}
             </ListStyled>
             <div>
                 <TotalStyled>

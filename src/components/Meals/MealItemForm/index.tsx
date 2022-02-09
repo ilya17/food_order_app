@@ -15,11 +15,15 @@ export const MealItemForm = ({ id, item, onAddHandler }: MealItemFormProps) => {
     const handleInput = (value: string) => setInputValue(value)
 
     const handleAddPosition = useCallback(() => {
+        let arr = []
         dispatch(increment(inputValue));
-        dispatch(addItem(item))
+        for (let i = 0; i < Number(inputValue); i++) {
+            arr.push(item);
+        };
+        dispatch(addItem([...arr]));
         onAddHandler(Number(inputValue));
         setInputValue('1');
-    }, [dispatch, inputValue, item, onAddHandler])
+    }, [dispatch, inputValue, item, onAddHandler]);
 
     return <FormStyled>
         <Input
