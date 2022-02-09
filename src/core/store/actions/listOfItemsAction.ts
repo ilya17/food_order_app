@@ -1,6 +1,6 @@
 import { MealItemProps } from "../../../components/Meals/MealItem/interfaces"
 
-export const addItem = (value: MealItemProps) => {
+export const addItem = (value: MealItemProps[]) => {
     return {
         type: 'ADD',
         value

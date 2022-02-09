@@ -1,21 +1,22 @@
 import styled, { keyframes } from 'styled-components';
 
-export const ButtonStyled = styled.button`
-  cursor: pointer;
-  font: inherit;
-  border: none;
-  background-color: #4d1601;
-  color: white;
-  padding: 0.75rem 3rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 25px;
-  font-weight: bold;
-  transition: all 0.3s;
+export const ButtonStyled = styled.div`
 
-  &:hover,
-  &:active {
+  & > button {
+    display: flex;
+    align-items: center;
+    background-color: #4d1601;
+
+  }
+
+  & > button:hover,
+  & > button:active {
+    background-color: #2c0d00;
+    transition: all 0.3s;
+  }
+
+  & > span:last-child:hover,
+  & > span:last-child > svg:active {
     background-color: #2c0d00;
     transition: all 0.3s;
   }
@@ -31,7 +32,8 @@ export const BadgeStyled = styled.span`
   background-color: #b94517;
   padding: 0.25rem 1rem;
   border-radius: 25px;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   font-weight: bold;
 `
 export const BumpAnimation = keyframes`
